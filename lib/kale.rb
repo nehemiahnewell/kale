@@ -1,17 +1,23 @@
 require "kale/version"
 require 'httparty'
+require 'json'
 
 module Kale
   class Kele
     include HTTParty
     
-    attr_accessor :authentication_token
+    attr_accessor :auth_token
     
     def initialize(user, password)
-      @api_url = 'https://www.bloc.io/api/v1'
+      @url = 'https://www.bloc.io/api/v1'
       get_autherized = self.class.post('https://www.bloc.io/api/v1/sessions/',
       :query => { :email => user, :password => password })
-      @authentication_token = get_autherized["auth_token"]
+      @auth_token = get_autherized["auth_token"]
+    end
+    
+    def get_me
+      response = self.class.get('https://www.bloc.io/api/v1/users/me', headers: { "authorization" => @auth_token })
+      JSON.parse response.body
     end
   end
 end
