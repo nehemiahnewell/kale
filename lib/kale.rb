@@ -37,14 +37,9 @@ module Kale
     end
 
 
-    def get_messages(message_num = -1)
-      if message_num == -1
-        response = self.class.get('https://www.bloc.io/api/v1/message_threads/', headers: { "authorization" => @auth_token})
+    def get_messages
+        response = self.class.get('https://www.bloc.io/api/v1/message_threads', headers: { "authorization" => @auth_token})
         JSON.parse response.body
-      else
-        response = self.class.get('https://www.bloc.io/api/v1/message_threads/', headers: { "authorization" => @auth_token})
-        (JSON.parse response.body).flatten[message_num]
-      end
     end
     
   end
