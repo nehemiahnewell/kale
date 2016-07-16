@@ -27,8 +27,13 @@ module Kale
       (JSON.parse response.body).flatten
     end
 
-    def get_messages
-      response = self.class.get('https://www.bloc.io/api/v1/message_threads', headers: { 'authorization' => @auth_token })
+    def get_messages(page_id = nil)
+      if page_id
+        response = self.class.get('https://www.bloc.io/api/v1/message_threads', query: { page: page_id }, headers: { 'authorization' => @auth_token })
+      else
+        response = self.class.get('https://www.bloc.io/api/v1/message_threads', headers: { 'authorization' => @auth_token })
+      end
+
       JSON.parse response.body
     end
   end
