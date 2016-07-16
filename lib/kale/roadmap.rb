@@ -1,9 +1,15 @@
-def get_roadmap
-  response = self.class.get('https://www.bloc.io/api/v1/roadmaps/31', headers: { "authorization" => @auth_token})
-  JSON.parse response.body
-end
+module Roadmap
+  API_ENDPOINT = 'https://www.bloc.io/api/v1'.freeze
 
-def get_checkpoint(checkpoint_id)
-  response = self.class.get('https://www.bloc.io/api/v1/checkpoints/' + String(checkpoint_id), headers: { "authorization" => @auth_token})
-  JSON.parse response.body
+  def get_roadmap(_roadmap_id)
+    response = self.class.get("#{API_ENDPOINT}/roadmaps/#{_roadmap_id}",
+                              headers: { 'authorization' => @auth_token })
+    JSON.parse response.body
+  end
+
+  def get_checkpoint(checkpoint_id)
+    response = self.class.get("#{API_ENDPOINT}/checkpoints/#{checkpoint_id}",
+                              headers: { 'authorization' => @auth_token })
+    JSON.parse response.body
+  end
 end
