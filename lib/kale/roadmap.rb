@@ -1,8 +1,8 @@
 module Roadmap
   API_ENDPOINT = 'https://www.bloc.io/api/v1'.freeze
 
-  def get_roadmap(_roadmap_id)
-    response = self.class.get("#{API_ENDPOINT}/roadmaps/#{_roadmap_id}",
+  def get_roadmap(roadmap_id)
+    response = self.class.get("#{API_ENDPOINT}/roadmaps/#{roadmap_id}",
                               headers: { 'authorization' => @auth_token })
     JSON.parse response.body
   end
