@@ -36,5 +36,12 @@ module Kale
 
       JSON.parse response.body
     end
+    
+    def create_message(user, recipient, subj, message)
+      return self.class.post('https://www.bloc.io/api/v1/messages',
+                                 query: { user_id: user, recipient_id: recipient, subject: subj, stripped: String(message)},
+                                 headers: { 'authorization' => @auth_token })
+      
+    end
   end
 end
